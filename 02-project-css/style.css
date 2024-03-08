@@ -1,0 +1,27 @@
+body {
+    background: linear-gradient(to right, red, black);
+    color: brown;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+
+h3 {
+    color: bisque;
+    font-size: larger;
+    font-style: italic;
+}
+
+p {
+    font-size: 30px;
+    font-style: oblique;
+    color: black;
+
+}
+
+h1 {
+    color: black;
+}
+
+.box {
+    background-color: aqua;
+}
