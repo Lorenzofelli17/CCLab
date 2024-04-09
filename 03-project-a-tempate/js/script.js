@@ -3,10 +3,10 @@ console.log("test");
 let x;
 let amp = 100;
 let speed = 1;
+let rotationAngle = 0; // Initial rotation angle
 
 function setup() {
     let canvas = createCanvas(600, 500);
-    canvas.parent("p5-canvas-container");
     x = 0; // Initial x position for the moving balls
 }
 
@@ -22,8 +22,7 @@ function draw() {
     // mouse changing amplitude
     amp = mouseY / 2;
 
-
-    x += speed; // control the speed of the circles
+    x += speed; // control the speed of the ellipses
     if (x > width) {
         x = 0;
     }
@@ -32,7 +31,7 @@ function draw() {
     strokeWeight(5);
     stroke(255 - r, 255 - g, 255 - b);
 
-    //  oscillating lines and circles across the screen
+    //  oscillating lines across the screen
     for (let i = 0; i < width; i++) {
         // Sine wave oscillation
         let ySin = height / 2 + sin(freq + i * 0.01) * amp;
@@ -42,19 +41,35 @@ function draw() {
         point(i, yCos);
     }
 
-    // circles
+    // Rotate ellipses
     noStroke();
     fill(255 - r, 255 - g, 255 - b);
-    let circleSize = map(mouseX, 0, width, 10, 50); // Change circle size based on mouse
-    let ySinCircle = height / 2 + sin(freq + x * 0.01) * amp; // Position for sine wave circle
-    circle(x, ySinCircle, circleSize);
+    let ellipseWidth = map(mouseX, 0, width, 10, 50);
+    let ellipseHeight = map(mouseX, 0, width, 20, 100);
 
-    let yCosCircle = height / 2 - cos(freq + x * 0.01) * amp;
-    circle(x, yCosCircle, circleSize);
-}
+    // Sine ellipse
+    push();
+    let ySinEllipse = height / 2 + sin(freq + x * 0.01) * amp;
+    translate(x, ySinEllipse);
+    rotate(rotationAngle);
+    ellipse(0, 0, ellipseWidth, ellipseHeight);
+    pop();
 
-function mousePressed() {
-    // Reset x to 0 or change speed when canvas is clicked
-    x = 0;
-    speed = random(0.5, 2); // Change speed to a random value between 0.5 and 2
+    // Cosine ellipse
+    push();
+    let yCosEllipse = height / 2 - cos(freq + x * 0.01) * amp;
+    translate(x, yCosEllipse);
+    rotate(-rotationAngle); // Rotate in the opposite direction
+    ellipse(0, 0, ellipseWidth, ellipseHeight);
+    pop();
+
+    // Update the rotation angle for the next frame
+    rotationAngle += 0.05;
+
+
+    function mousePressed() {
+        // Reset x to 0 or change speed when canvas is clicked
+        x = 0;
+        speed = random(0.5, 10); // Change speed to a random value between 0.5 and 2
+    }
 }
