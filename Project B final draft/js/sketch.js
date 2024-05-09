@@ -14,40 +14,34 @@ function makeChoice(choice) {
   let eventOutcome = Math.random();
   if (choice === 'invest') {
     if (eventOutcome > 0.5) {
-      // 50% chance of investment success
-      money += 50; // Profit from the investment
+      money += 50;
       displayResult("Your investment paid off!");
     } else {
-      money -= 50; // Loss from the investment
+      money -= 50;
       displayResult("Your investment did not go well.");
     }
   } else if (choice === 'leisure') {
     if (eventOutcome > 0.5) {
-      // 50% chance of expensive leisure activity
-      money -= 75; // Cost for leisure
+      money -= 75;
       displayResult("You had a great time, but it was quite expensive.");
     } else {
-      money -= 25; // Cost for a modest leisure activity
+      money -= 25;
       displayResult("You enjoyed some affordable leisure time.");
     }
   }
   updateWallet();
 
-  // Check if the game should end
   if (money <= 0) {
     endGame();
   } else {
-    // Present the next random question
     randomQuestion();
   }
 }
 
 function randomQuestion() {
-  // Display a random question or scenario to the user
   let scenarios = [
     "Do you want to invest in a friend's start-up or go on a luxury vacation?",
     "Do you choose to buy stocks or spend a weekend at a spa resort?",
-    // Add more scenarios as needed
   ];
 
   let randomScenario = scenarios[Math.floor(Math.random() * scenarios.length)];
@@ -65,11 +59,8 @@ function endGame() {
   }
 
   displayResult(finalMessage);
-  // Disable the buttons so no further actions can be taken.
   document.getElementById('invest-button').disabled = true;
   document.getElementById('leisure-button').disabled = true;
 }
-
-// Initialize the game
 updateWallet();
 randomQuestion();

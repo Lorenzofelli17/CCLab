@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" type="text/css" href="result.css">
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Classification Result</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #51a618;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        #classification {
+            font-size: 3em;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        #explanation {
+            font-size: 1.5em;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        #play-again-button {
+            padding: 10px 20px;
+            font-size: 1.2em;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            background-color: #007bff;
+            color: #fff;
+            transition: background-color 0.3s ease;
+        }
+
+        #play-again-button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="classification">
+        <h1>Classification Result</h1>
+        <p id="result"></p>
+    </div>
+
+    <div id="explanation">
+        <p id="explanation-text"></p>
+    </div>
+
+    <button id="play-again-button" onclick="playAgain()">Play Again</button>
+
+    <script>
+        const result = localStorage.getItem("result");
+        const explanation = localStorage.getItem("explanation");
+        document.getElementById("result").textContent = result;
+        document.getElementById("explanation-text").textContent = explanation;
+
+        function playAgain() {
+            localStorage.clear();
+            window.location.href = "index.html";
+        }
+    </script>
+
+</body>
+
+</html>

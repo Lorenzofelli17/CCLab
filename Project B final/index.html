@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dear Future: Experience Our Past</title>
+  <link rel="stylesheet" type="text/css" href="style.css">
+
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-image: url('your-background-image.jpg');
+      background-size: cover;
+      background-position: center;
+      color: #008d31;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    #game-container {
+      text-align: center;
+    }
+
+    #wallet {
+      font-size: 1.5em;
+      margin-bottom: 20px;
+    }
+
+    #options {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    #invest-button,
+    #leisure-button {
+      padding: 15px 30px;
+      margin: 0 20px;
+      font-size: 1.2em;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      background-color: #007bff;
+      color: #fff;
+      transition: background-color 0.3s ease;
+    }
+
+    #invest-button:hover,
+    #leisure-button:hover {
+      background-color: #0056b3;
+    }
+
+    #result {
+      font-size: 1.2em;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <h1>Dear Future: Experience Our Past</h1>
+    <p>Step back in time and see how we lived. Explore the sights, sounds, and lives of our ancestors.</p>
+  </header>
+
+  <section id="game-container">
+    <div id="wallet">Money left: $<span id="money">100</span></div>
+    <div id="shots">Shots remaining: <span id="remaining-shots">10</span></div>
+
+    <div id="options">
+      <button id="invest-button" onclick="investMoney()">Invest Money</button>
+      <button id="leisure-button" onclick="spendOnLeisure()">Spend on Leisure</button>
+    </div>
+
+    <div id="result"></div>
+  </section>
+
+  <footer>
+    <p>&copy; 2024 Your Website Footer</p>
+  </footer>
+
+  <script>
+    let money = 100; // Initial money amount
+    let totalInvested = 0; // Total amount invested
+    let totalSpent = 0; // Total amount spent
+    let remainingShots = 10; // Initial number of shots
+
+    function updateMoneyDisplay() {
+      document.getElementById('money').textContent = money.toFixed(2);
+    }
+
+    function updateShotsDisplay() {
+      document.getElementById('remaining-shots').textContent = remainingShots;
+    }
+
+    function getRandomAmount(min, max) {
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+    function investMoney() {
+      let amount = getRandomAmount(20, 100); // Generate random amount to invest
+      money += amount;
+      totalInvested += amount;
+      remainingShots--;
+      updateMoneyDisplay();
+      updateShotsDisplay();
+      displayResult(`You've invested $${amount}.`);
+      classifyPerson();
+    }
+
+    function spendOnLeisure() {
+      let amount = getRandomAmount(10, 50); // Generate random amount to spend on leisure
+      money -= amount;
+      totalSpent += amount;
+      remainingShots--;
+      updateMoneyDisplay();
+      updateShotsDisplay();
+      displayResult(`You've spent $${amount} on leisure.`);
+      classifyPerson();
+    }
+
+    function displayResult(message) {
+      document.getElementById('result').textContent = message;
+    }
+
+    function classifyPerson() {
+      if (remainingShots === 0) {
+        let result;
+        let explanation;
+
+        if (totalInvested > totalSpent) {
+          result = "You are a saver!";
+          explanation = "You have prioritized saving and investing your money, which can lead to long-term financial stability.";
+        } else if (totalInvested < totalSpent) {
+          result = "You are a spender!";
+          explanation = "You have prioritized spending on leisure activities, which can provide immediate enjoyment but may impact long-term financial goals.";
+        } else {
+          result = "You are balanced!";
+          explanation = "You have maintained a balance between saving and spending, which is important for financial health.";
+        }
+
+
+        localStorage.setItem("result", result);
+        localStorage.setItem("explanation", explanation);
+        window.location.href = "result.html";
+      } else {
+        displayResult(`Shots remaining: ${remainingShots}`);
+      }
+    }
+
+    updateMoneyDisplay();
+    updateShotsDisplay();
+  </script>
+
+</body>
+
+</html>
